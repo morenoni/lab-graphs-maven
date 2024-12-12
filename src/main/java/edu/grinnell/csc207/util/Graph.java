@@ -969,11 +969,59 @@ public class Graph {
    * @return the corresponding vertex number.
    */
   private int safeVertexNumber(String vertex) throws Exception {
+
     int num = this.vertexNumber(vertex);
     if (num == -1) {
       num = this.addVertex(vertex);
     } // if
     return num;
   } // safeVertexNumber(String)
+
+  public List<Integer> shortestPath(int source, int sink) { 
+    int[] nodeDistances = new int[this.numVertices];
+    int[] prevNodes = new int[this.numVertices];
+
+    for (int i = 0; i < this.numVertices; ++i) { 
+      nodeDistances[i] = Integer.MAX_VALUE;
+      prevNodes[i] = -1; 
+      unmark(i);        
+    }
+    nodeDistances[source] = 0;
+    int nearest = source;
+    while (!isMarked(sink)) {  
+      int nearestDistance = Integer.MAX_VALUE;
+      for (int i = 0; i < this.numVertices; ++i) { 
+        if (!isMarked(i) && nodeDistances[i] < nearestDistance) { 
+          nearest = i;
+          nearestDistance = nodeDistances[i];
+        }
+      }
+      if (nearestDistance == Integer.MAX_VALUE) {
+        break; 
+      }
+
+      mark(nearest);
+
+      for (Edge edge : this.vertices[nearest]) { 
+        int newDistance = edge.weight() + nodeDistances[nearest];
+        if (nodeDistances[edge.target()] > newDistance) { 
+          nodeDistances[edge.target()] = newDistance;
+          prevNodes[edge.target()] = nearest; 
+        }
+      }
+    }
+
+    if (prevNodes[sink] == -1) {
+      return null;
+    }
+
+    List<Integer> path = new ArrayList<>();
+    for (int prev = sink; prev != -1; prev = prevNodes[prev]) { 
+      path.add(0, prev); 
+    }
+    return path;
+  }
+
+
 
 } // class Graph

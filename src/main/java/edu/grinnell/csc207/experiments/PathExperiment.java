@@ -1,8 +1,8 @@
 package edu.grinnell.csc207.experiments;
 
-import edu.grinnell.csc207.util.Graph;
-
 import java.io.PrintWriter;
+
+import edu.grinnell.csc207.util.Graph;
 
 /**
  * A quick experiment with paths.
@@ -47,6 +47,7 @@ public class PathExperiment {
     pen.println(g.path("a", "f"));
     pen.println(g.path("a", "g"));
     pen.println(g.path("a", "a"));
+    
     pen.println("Done");
   } // main(String[])
 

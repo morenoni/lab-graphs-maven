@@ -1,8 +1,9 @@
 package edu.grinnell.csc207.experiments;
 
-import edu.grinnell.csc207.util.Graph;
-
 import java.io.PrintWriter;
+import java.util.List;
+
+import edu.grinnell.csc207.util.Graph;
 
 /**
  * A quick experiment with graphs.
@@ -73,6 +74,23 @@ public class GraphExperiment {
     // Remove an edge
     g.removeEdge("a", "c");
     g.dump(pen);
+
+
+    Graph h = new Graph(4);
+    h.addVertex("a");
+    h.addVertex("b");
+    h.addVertex("c");
+
+    h.addEdge("a", "b", 1);
+    h.addEdge("b", "c", 1);
+    h.addEdge("c", "a", 1);
+    h.dumpWithNames(pen);
+    System.out.println("kdksnvjervkehjfk3bf");
+    List<Integer> path = h.shortestPath(0, 3);
+    for(Integer p : path) { 
+      pen.println(p);
+    }
+    pen.println(path.size());
   } // main(String[])
 
 } // class GraphExperiment
